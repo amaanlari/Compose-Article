@@ -33,14 +33,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ArticleText()
+                    ComposeArticle()
                 }
             }
         }
     }
 }
 
-
+@Composable
+fun ComposeArticle(modifier: Modifier = Modifier){
+    Column(modifier = modifier.fillMaxSize()) {
+        ArticleImage()
+        ArticleText()
+    }
+}
 @Composable
 fun ArticleImage() {
     val composeImage = painterResource(id = R.drawable.bg_compose_background)
@@ -77,7 +83,6 @@ fun ArticleText() {
 @Composable
 fun GreetingPreview() {
     ComposeArticleTheme {
-        ArticleImage()
-        ArticleText()
+        ComposeArticle()
     }
 }
