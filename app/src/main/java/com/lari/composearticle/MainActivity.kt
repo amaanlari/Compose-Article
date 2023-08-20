@@ -6,15 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -33,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ComposeArticle()
+                    ComposeArticleApp()
                 }
             }
         }
@@ -41,40 +39,37 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ComposeArticle(modifier: Modifier = Modifier){
-    Column(modifier = modifier.fillMaxSize()) {
-        ArticleImage()
-        ArticleText()
-    }
-}
-@Composable
-fun ArticleImage() {
-    val composeImage = painterResource(id = R.drawable.bg_compose_background)
-    Image(
-        painter = composeImage,
-        contentDescription = null,
-        modifier = Modifier.fillMaxWidth(),
-        alignment = Alignment.TopCenter,
-        contentScale = ContentScale.Fit
+fun ComposeArticleApp(){
+    ArticleCard(
+        title = stringResource(id = R.string.title_jetpack_compose_tutorial),
+        shortDescription = stringResource(id = R.string.compose_short_desc),
+        longDescription = stringResource(id = R.string.compose_long_desc),
+        imagePainter = painterResource(id = R.drawable.bg_compose_background)
     )
 }
-
 @Composable
-fun ArticleText() {
-    Column(modifier = Modifier.fillMaxSize()) {
+private fun ArticleCard(
+    title: String,
+    shortDescription: String,
+    longDescription: String,
+    imagePainter: Painter,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.fillMaxSize()) {
+        Image(painter = imagePainter, contentDescription = null)
         Text(
-            text = stringResource(id = R.string.title_text),
-            modifier = Modifier.padding(16.dp),
+            text = title,
             fontSize = 24.sp,
+            modifier = modifier.padding(16.dp)
         )
         Text(
-            text = stringResource(id = R.string.intro_para),
-            modifier = Modifier.padding(16.dp),
+            text = shortDescription,
+            modifier = modifier.padding(16.dp),
             textAlign = TextAlign.Justify
         )
         Text(
-            text = stringResource(id = R.string.tutorial_para),
-            modifier = Modifier.padding(16.dp),
+            text = longDescription,
+            modifier = modifier.padding(16.dp),
             textAlign = TextAlign.Justify
         )
     }
@@ -83,6 +78,6 @@ fun ArticleText() {
 @Composable
 fun GreetingPreview() {
     ComposeArticleTheme {
-        ComposeArticle()
+        ComposeArticleApp()
     }
 }
